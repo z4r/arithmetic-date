@@ -5,7 +5,7 @@ xcode_scheme: ArithmeticDate
 xcode_sdk: iphonesimulator9.3
 env:
   global:
-  - FRAMEWORK_NAME=ArithmeticDate.xcodeproj
+  - FRAMEWORK_NAME=ArithmeticDate
 before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
