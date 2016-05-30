@@ -140,27 +140,27 @@ class ArithmeticDateTests: XCTestCase {
         self.date = NSDate(timeIntervalSince1970: 1464604716)
         
         self.delta = NSDateComponents()
-        self.delta.second = 2
-        self.delta.minute = 2
-        self.delta.hour = 2
-        self.delta.day = 2
-        self.delta.month = 2
-        self.delta.year = 2
+        self.delta.second = 1
+        self.delta.minute = 1
+        self.delta.hour = 1
+        self.delta.day = 1
+        self.delta.month = 1
+        self.delta.year = 1
     }
     
     func testDateSum() {
         let got = self.date + self.delta
-        XCTAssertEqual(got.timeIntervalSince1970, 1533127238)
+        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
     }
     
     func testDateSumCommutative() {
         let got = self.delta + self.date
-        XCTAssertEqual(got.timeIntervalSince1970, 1533127238)
+        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
     }
     
     func testDateSub() {
-        let got = self.date - self.delta
-        XCTAssertEqual(got.timeIntervalSince1970, 1, got.description)
+        let got = self.date - delta
+        XCTAssertEqual(got.timeIntervalSince1970, 1430300255)
     }
     
     func lt() {
