@@ -1,0 +1,23 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_project: ArithmeticDate.xcodeproj
+xcode_scheme: ArithmeticDate
+xcode_sdk: iphonesimulator9.3
+env:
+  global:
+  - FRAMEWORK_NAME=ArithmeticDate.xcodeproj
+before_install:
+- brew update
+- brew outdated carthage || brew upgrade carthage
+before_deploy:
+- carthage build --no-skip-current
+- carthage archive $FRAMEWORK_NAME
+deploy:
+  provider: releases
+  api_key:
+    secure: GPIXE4qibKhow2ak4f4YLZAxvqAK4k4Ry3u8Pb12D4o+oHZzlobX0i+xzrgWdKJcDP6AZwafDi8qIgaNyB5ggXMv8lKeVZingAVz9DDUK0/ZPQlovvqWaGsPuEDkzC33kA320xbK7YkEuFaixcoyh3VzxX37fWomOLqHvRsARMNhbnV1yEuZGIXfCH2d09HJlnCinogf6bzZYfIKpxJzGnGO0k97MmMUxxaSqZ24BGh9LeoslzF/xeyochSevdrmJKEZzk4yNJg2RCRAM319EORvVvaAhCNwr1ldeSRWDjdBEJ4d70P8fip5/oTivfQwdO89ZtqNUBSKhSDl+qS46+7TDaIacLtJXbMLkWuThKfYebQEwhyxsex+BnSThUaZS1PizU1aKybHfgsjp/IJPTGjWqz5c7jqGQAKKXgMWcZnEN8R5/oFeurtHYGiuAsQCkkZ8ueZdldXMpKCf2o6CEq/f8mDLw9ffVt5Q+8Ftm+Uq7NjIJBdGBpXFTGgR5ENK1DPKXRoE6i8JKIfHqKp2kgizgQ45syX6IG9dfLOcCyHU/raXungR5SuvVSwLLqKgVI9eddGNhHbIlrRGbnhQK8uhEKw6ZAT+PW+qaesa4DGyNPzoiNr0bLjN3fRJmaNySZaVvdeFPhR1+vew5wQEO4SSVXihFmmHMYihxWfdaY=
+  file: ArithmeticDate.framework.zip
+  skip_cleanup: true
+  on:
+    repo: z4r/arithmetic-date
+    tags: true
