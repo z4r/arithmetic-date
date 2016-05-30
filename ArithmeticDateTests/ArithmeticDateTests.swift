@@ -160,7 +160,7 @@ class ArithmeticDateTests: XCTestCase {
     
     func testDateSub() {
         let got = self.date - self.delta
-        XCTAssertEqual(got.timeIntervalSince1970, 1, NSCalendar.currentCalendar().calendarIdentifier)
+        XCTAssertEqual(got.timeIntervalSince1970, 1395995794, got.description)
     }
     
     func lt() {
