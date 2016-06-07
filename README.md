@@ -4,7 +4,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![swiftyness](https://img.shields.io/badge/pure-swift-ff3f26.svg?style=flat)](https://swift.org/)
 
-This framework helps with Arithmetic date manipulation:
+This framework helps with Arithmetic date manipulation using `NSDate` and `NSDateComponents`:
 
 ## Installation
 
