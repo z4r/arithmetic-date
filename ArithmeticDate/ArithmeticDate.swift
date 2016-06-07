@@ -106,15 +106,25 @@ public func -(lhs: NSDate, rhs: NSDateComponents) -> NSDate {
     return lhs + (-rhs)
 }
 
+public protocol DateProvider {
+    func now() -> NSDate
+}
+
+struct NSDateProvider: DateProvider {
+    func now() -> NSDate {
+        return NSDate()
+    }
+}
+
 public extension NSDateComponents {
-    var fromNow: NSDate {
+    func fromNow(date: DateProvider = NSDateProvider()) -> NSDate {
         let currentCalendar = NSCalendar.currentCalendar()
-        return currentCalendar.dateByAddingComponents(self, toDate: NSDate(), options: [])!
+        return currentCalendar.dateByAddingComponents(self, toDate: date.now(), options: [])!
     }
     
-    var ago: NSDate {
+    func ago(date: DateProvider = NSDateProvider()) -> NSDate {
         let currentCalendar = NSCalendar.currentCalendar()
-        return currentCalendar.dateByAddingComponents(-self, toDate: NSDate(), options: [])!
+        return currentCalendar.dateByAddingComponents(-self, toDate: date.now(), options: [])!
     }
 }
 

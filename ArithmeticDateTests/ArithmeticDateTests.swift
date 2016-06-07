@@ -163,7 +163,7 @@ class ArithmeticDateTests: XCTestCase {
         XCTAssertEqual(got.timeIntervalSince1970, 1430300255)
     }
     
-    func lt() {
+    func testLT() {
         let date = NSDate(timeIntervalSince1970: 1464604716)
         let sum = self.date + self.delta
         let sub = self.date - self.delta
@@ -179,3 +179,37 @@ class ArithmeticDateTests: XCTestCase {
     }
 }
 
+struct TestDateProvider: DateProvider {
+    let date: NSDate
+    func now() -> NSDate {
+        return date
+    }
+}
+
+class DateProviderTests: XCTestCase {
+    var provider: TestDateProvider!
+    var delta: NSDateComponents!
+    
+    override func setUp() {
+        let date = NSDate(timeIntervalSince1970: 1464604716)
+        self.provider = TestDateProvider(date: date)
+
+        self.delta = NSDateComponents()
+        self.delta.second = 1
+        self.delta.minute = 1
+        self.delta.hour = 1
+        self.delta.day = 1
+        self.delta.month = 1
+        self.delta.year = 1
+    }
+    
+    func testAgo() {
+        let got = delta.ago(self.provider)
+        XCTAssertEqual(got.timeIntervalSince1970, 1430300255)
+    }
+    
+    func testFromNow() {
+        let got = delta.fromNow(self.provider)
+        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
+    }
+}
