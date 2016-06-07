@@ -61,8 +61,13 @@ class ArithmeticDateComponentsTests: XCTestCase {
         self.rhs.year = 2
     }
     
+    func TestInline() {
+        let got: NSDateComponents = 2.seconds + 2.minutes + 2.hours + 2.days + 2.months + 2.years
+        XCTAssertEqual(got, self.rhs)
+    }
+    
     func testCombineSum() {
-        let got = combineComponents(self.lhs, rhs: self.rhs, op: .Sum)
+        let got = combineComponents(self.lhs, rhs: self.rhs)
         XCTAssertEqual(got.second, 3)
         XCTAssertEqual(got.minute, 3)
         XCTAssertEqual(got.hour, 3)
@@ -72,7 +77,7 @@ class ArithmeticDateComponentsTests: XCTestCase {
     }
     
     func testCombineSub() {
-        let got = combineComponents(self.lhs, rhs: self.rhs, op: .Sub)
+        let got = combineComponents(self.lhs, rhs: self.rhs, -1)
         XCTAssertEqual(got.second, -1)
         XCTAssertEqual(got.minute, -1)
         XCTAssertEqual(got.hour, -1)
@@ -133,12 +138,14 @@ class ArithmeticDateComponentsTests: XCTestCase {
 }
 
 class ArithmeticDateTests: XCTestCase {
+    let dateFormatter = NSDateFormatter()
     var date: NSDate!
     var delta: NSDateComponents!
     
     override func setUp() {
-        self.date = NSDate(timeIntervalSince1970: 1464604716)
-        
+        self.dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
+        self.date = self.dateFormatter.dateFromString("04-11-14 23:04:00")!
+
         self.delta = NSDateComponents()
         self.delta.second = 1
         self.delta.minute = 1
@@ -150,30 +157,29 @@ class ArithmeticDateTests: XCTestCase {
     
     func testDateSum() {
         let got = self.date + self.delta
-        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
+        XCTAssertEqual(self.dateFormatter.stringFromDate(got), "06-12-15 00:05:01")
     }
     
     func testDateSumCommutative() {
         let got = self.delta + self.date
-        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
+        XCTAssertEqual(self.dateFormatter.stringFromDate(got), "06-12-15 00:05:01")
     }
     
     func testDateSub() {
         let got = self.date - delta
-        XCTAssertEqual(got.timeIntervalSince1970, 1430300255)
+        XCTAssertEqual(self.dateFormatter.stringFromDate(got), "03-10-13 22:02:59")
     }
     
     func testLT() {
-        let date = NSDate(timeIntervalSince1970: 1464604716)
         let sum = self.date + self.delta
         let sub = self.date - self.delta
         
         XCTAssert(sum > self.date)
         XCTAssert(sub < self.date)
         XCTAssert(sub < sum)
-        XCTAssert(date <= self.date)
-        XCTAssert(date >= self.date)
-        XCTAssertEqual(self.date, date)
+        XCTAssert(self.date <= self.date)
+        XCTAssert(self.date >= self.date)
+        XCTAssertEqual(self.date, self.date)
         XCTAssertNotEqual(self.date, sum)
         XCTAssertNotEqual(self.date, sub)
     }
@@ -187,11 +193,13 @@ struct TestDateProvider: DateProvider {
 }
 
 class DateProviderTests: XCTestCase {
+    let dateFormatter = NSDateFormatter()
     var provider: TestDateProvider!
     var delta: NSDateComponents!
     
     override func setUp() {
-        let date = NSDate(timeIntervalSince1970: 1464604716)
+        self.dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
+        let date = self.dateFormatter.dateFromString("04-11-14 23:04:00")!
         self.provider = TestDateProvider(date: date)
 
         self.delta = NSDateComponents()
@@ -205,11 +213,11 @@ class DateProviderTests: XCTestCase {
     
     func testAgo() {
         let got = delta.ago(self.provider)
-        XCTAssertEqual(got.timeIntervalSince1970, 1430300255)
+        XCTAssertEqual(self.dateFormatter.stringFromDate(got), "03-10-13 22:02:59")
     }
     
     func testFromNow() {
         let got = delta.fromNow(self.provider)
-        XCTAssertEqual(got.timeIntervalSince1970, 1498909177)
+        XCTAssertEqual(self.dateFormatter.stringFromDate(got), "06-12-15 00:05:01")
     }
 }

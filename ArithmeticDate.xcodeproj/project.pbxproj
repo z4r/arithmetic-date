@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E68AC8C1D06BBAD003A01B3 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		9EA1240E1CFC474E00380846 /* ArithmeticDate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ArithmeticDate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EA124111CFC474E00380846 /* ArithmeticDate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArithmeticDate.h; sourceTree = "<group>"; };
 		9EA124131CFC474E00380846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -55,6 +56,7 @@
 		9EA124041CFC474E00380846 = {
 			isa = PBXGroup;
 			children = (
+				9E68AC8C1D06BBAD003A01B3 /* Playground.playground */,
 				9EA124101CFC474E00380846 /* ArithmeticDate */,
 				9EA1241C1CFC474E00380846 /* ArithmeticDateTests */,
 				9EA1240F1CFC474E00380846 /* Products */,

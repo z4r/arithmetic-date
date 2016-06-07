@@ -1,41 +1,24 @@
 import Foundation
 
-enum NSDateComponentsOperation {
-    case Sum
-    case Sub
-    
-    func accept(lhs: Int, rhs: Int) -> Int {
-        let undefined = Int(NSDateComponentUndefined)
-        let multiplier: Int
-        switch self {
-            case Sum: multiplier = 1
-            case Sub: multiplier = -1
-        }
-        
-        return (lhs != undefined ? lhs : 0) + (rhs != undefined ? rhs : 0) * multiplier
-    }
-}
-
-func combineComponents(lhs: NSDateComponents, rhs: NSDateComponents, op: NSDateComponentsOperation) -> NSDateComponents {
+func combineComponents(lhs: NSDateComponents, rhs: NSDateComponents, _ multiplier: Int = 1) -> NSDateComponents {
     let result = NSDateComponents()
+    let undefined = Int(NSDateComponentUndefined)
     
-    result.second = op.accept(lhs.second, rhs: rhs.second)
-    result.minute = op.accept(lhs.minute, rhs: rhs.minute)
-    result.hour = op.accept(lhs.hour, rhs: rhs.hour)
-    result.day = op.accept(lhs.day, rhs: rhs.day)
-    result.month = op.accept(lhs.month, rhs: rhs.month)
-    result.year = op.accept(lhs.year, rhs: rhs.year)
-    result.second = op.accept(lhs.second, rhs: rhs.second)
-
+    result.second = ((lhs.second != undefined ? lhs.second : 0) + (rhs.second != undefined ? rhs.second : 0) * multiplier)
+    result.minute = ((lhs.minute != undefined ? lhs.minute : 0) + (rhs.minute != undefined ? rhs.minute : 0) * multiplier)
+    result.hour = ((lhs.hour != undefined ? lhs.hour : 0) + (rhs.hour != undefined ? rhs.hour : 0) * multiplier)
+    result.day = ((lhs.day != undefined ? lhs.day : 0) + (rhs.day != undefined ? rhs.day : 0) * multiplier)
+    result.month = ((lhs.month != undefined ? lhs.month : 0) + (rhs.month != undefined ? rhs.month : 0) * multiplier)
+    result.year = ((lhs.year != undefined ? lhs.year : 0) + (rhs.year != undefined ? rhs.year : 0) * multiplier)
     return result
 }
 
 public func +(lhs: NSDateComponents, rhs: NSDateComponents) -> NSDateComponents {
-    return combineComponents(lhs, rhs: rhs, op: .Sum)
+    return combineComponents(lhs, rhs: rhs)
 }
 
 public func -(lhs: NSDateComponents, rhs: NSDateComponents) -> NSDateComponents {
-    return combineComponents(lhs, rhs: rhs, op: .Sub)
+    return combineComponents(lhs, rhs: rhs, -1)
 }
 
 prefix func -(components: NSDateComponents) -> NSDateComponents {
