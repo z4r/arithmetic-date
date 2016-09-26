@@ -9,8 +9,8 @@ env:
   - FRAMEWORK_NAME=ArithmeticDate
 before_install:
 - brew update
-- brew outdated xctool || brew upgrade xctool
 - brew outdated carthage || brew upgrade carthage
+script: set -o pipefail && xcodebuild -workspace $TRAVIS_XCODE_WORKSPACE -scheme $TRAVIS_XCODE_SCHEME -sdk $TRAVIS_XCODE_SDK build | xcpretty -c
 before_deploy:
 - carthage build --no-skip-current
 - carthage archive $FRAMEWORK_NAME
