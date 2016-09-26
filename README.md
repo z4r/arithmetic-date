@@ -4,7 +4,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![swiftyness](https://img.shields.io/badge/pure-swift-ff3f26.svg?style=flat)](https://swift.org/)
 
-This framework helps with Arithmetic date manipulation using `NSDate` and `NSDateComponents`:
+This framework helps with Arithmetic date manipulation using `Date` and `DateComponents`:
 
 ## Installation
 
@@ -20,11 +20,11 @@ github "z4r/arithmetic-date"
 ```Swift
 import ArithmeticDate
 
-let dateFormatter = NSDateFormatter()
+let dateFormatter = DateFormatter()
 dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
-let date = dateFormatter.dateFromString("04-11-14 23:04:00")!
+let date = dateFormatter.date(from: "04-11-14 23:04:00")!
 
-let delta: NSDateComponents = 1.years + 2.months + 3.days + 4.hours + 5.minutes + 6.seconds
+let delta: DateComponents = 1.years + 2.months + 3.days + 4.hours + 5.minutes + 6.seconds
 let newDate = date + delta
 
 1.years.fromNow()
