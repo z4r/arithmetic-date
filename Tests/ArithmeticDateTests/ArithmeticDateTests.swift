@@ -145,7 +145,7 @@ class ArithmeticDateTests: XCTestCase {
     override func setUp() {
         self.dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
         self.date = self.dateFormatter.date(from: "04-11-14 23:04:00")!
-
+        
         self.delta = DateComponents()
         self.delta.second = 1
         self.delta.minute = 1
@@ -201,7 +201,7 @@ class DateProviderTests: XCTestCase {
         self.dateFormatter.dateFormat = "dd-MM-yy HH:mm:ss"
         let date = self.dateFormatter.date(from: "04-11-14 23:04:00")!
         self.provider = TestDateProvider(date: date)
-
+        
         self.delta = DateComponents()
         self.delta.second = 1
         self.delta.minute = 1

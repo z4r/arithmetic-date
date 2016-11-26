@@ -1,19 +1,23 @@
 language: objective-c
+osx_image: xcode8.1
 
-xcode_project: ArithmeticDate.xcodeproj
-xcode_scheme: ArithmeticDate
-osx_image: xcode8
-xcode_sdk: iphonesimulator10.0
 env:
-  global:
-  - FRAMEWORK_NAME=ArithmeticDate
+  - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
+  - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
+  - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch - 38mm'
+  - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
+
 before_install:
-- brew update
-- brew outdated carthage || brew upgrade carthage
-script: set -o pipefail && xcodebuild test -project $TRAVIS_XCODE_PROJECT -scheme $TRAVIS_XCODE_SCHEME -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty -c
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+
+script:
+  - set -o pipefail && xcodebuild $ACTION -project ArithmeticDate.xcodeproj -scheme ArithmeticDate -destination "$DESTINATION" | xcpretty -c
+
 before_deploy:
-- carthage build --no-skip-current
-- carthage archive $FRAMEWORK_NAME
+  - carthage build --no-skip-current
+  - carthage archive ArithmeticDate
+
 deploy:
   provider: releases
   api_key:

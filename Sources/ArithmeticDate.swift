@@ -1,7 +1,7 @@
 import Foundation
 
 func combineComponents(_ lhs: DateComponents, rhs: DateComponents, _ multiplier: Int = 1) -> DateComponents {
-    var result = DateComponents()    
+    var result = DateComponents()
     result.second = (lhs.second ?? 0) + (rhs.second ?? 0) * multiplier
     result.minute = (lhs.minute ?? 0) + (rhs.minute ?? 0) * multiplier
     result.hour = (lhs.hour ?? 0) + (rhs.hour ?? 0) * multiplier
