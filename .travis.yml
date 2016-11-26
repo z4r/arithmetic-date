@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode8.1
-  
+
 env:
   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 6S'
@@ -12,7 +12,7 @@ before_install:
   - brew outdated carthage || brew upgrade carthage
 
 script:
-  - set -o pipefail && xcodebuild $ACTION -project ArithmeticDate.xcodeproj -scheme ArithmeticDate -destination $DESTINATION | xcpretty -c
+  - set -o pipefail && xcodebuild $ACTION -project ArithmeticDate.xcodeproj -scheme ArithmeticDate -destination "$DESTINATION" | xcpretty -c
 
 before_deploy:
   - carthage build --no-skip-current
