@@ -1,3 +1,4 @@
+import Foundation
 import ArithmeticDate
 
 let dateFormatter = DateFormatter()
