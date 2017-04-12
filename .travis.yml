@@ -4,8 +4,11 @@ osx_image: xcode8.3
 env:
   - ACTION=test  PLATFORM=Mac     DESTINATION='platform=OS X'
   - ACTION=test  PLATFORM=iOS     DESTINATION='platform=iOS Simulator,name=iPhone 7'
-  - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,OS=3.2,name=Apple Watch - 42mm'
+  - ACTION=build PLATFORM=watchOS DESTINATION='platform=watchOS Simulator,name=Apple Watch Series 2 - 42mm'
   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
+  
+before_install:
+  - xcrun simctl delete 25EF4763-1942-4A3B-A80F-FC080592B82C
 
 script:
   - set -o pipefail && xcodebuild $ACTION -project ArithmeticDate.xcodeproj -scheme ArithmeticDate -destination "$DESTINATION" | xcpretty -c
