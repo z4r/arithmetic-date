@@ -8,14 +8,14 @@ env:
   - ACTION=test  PLATFORM=tvOS    DESTINATION='platform=tvOS Simulator,name=Apple TV 1080p'
   
 before_install:
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
   - xcrun simctl delete 25EF4763-1942-4A3B-A80F-FC080592B82C
 
 script:
   - set -o pipefail && xcodebuild $ACTION -project ArithmeticDate.xcodeproj -scheme ArithmeticDate -destination "$DESTINATION" | xcpretty -c
 
 before_deploy:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
   - carthage build --no-skip-current
   - carthage archive ArithmeticDate
 
